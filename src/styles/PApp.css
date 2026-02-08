@@ -1,0 +1,110 @@
+:root {
+  /* These names must match the keys in constants.js (converted to dashes) */
+  --bg-gradient: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+  --text-color: #590d22;
+  --glass-heart: rgba(255, 255, 255, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.9);
+  --primary-color: #ff4d6d;
+  --shadow-color: rgba(255, 77, 109, 0.2);
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-color);
+  background: var(--bg-gradient);
+  transition: background 0.3s, color 0.3s;
+  overflow-x: hidden;
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-area {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Glass Heart */
+.heart-wrapper {
+  position: relative;
+  width: 600px;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heart-svg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  filter: drop-shadow(0px 10px 20px var(--shadow-color));
+  transition: fill 0.3s;
+}
+
+.content-box {
+  position: relative;
+  z-index: 2;
+  width: 320px;
+  height: 400px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* UI Elements */
+.btn {
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s;
+}
+
+.primary-btn {
+  background: var(--primary-color);
+  color: white;
+  padding: 10px 35px;
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+}
+
+.secondary-btn {
+  background: #6c757d;
+  color: white;
+  padding: 10px 35px;
+  border-radius: 50px;
+}
+
+.outline-btn {
+  background: var(--glass-heart);
+  border: 2px solid var(--primary-color);
+  color: var(--text-color);
+  padding: 12px 24px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.popup {
+  color: var(--primary-color);
+  font-weight: bold;
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+  100% { transform: translateX(0); }
+}
