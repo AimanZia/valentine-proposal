@@ -1,70 +1,76 @@
 import React from 'react';
-import { Info, ArrowRight } from 'lucide-react';
+import { Info, ArrowRight, Heart } from 'lucide-react';
+import '../styles/QuestionCard.css';
 
 const QuestionCard = ({ 
   questionData, 
   mode, 
   showHint, 
   toggleHint, 
-  onYes, 
-  onNoHover, 
-  noBtnPosition, 
+  onYes,
+  onNoHover,
   popupMessage, 
   showNextBtn, 
-  onNextQuestion 
+  onNextQuestion,
+  accepted
 }) => {
+  if (accepted) {
+    return (
+      <div className="question-card-container fade-in">
+        <div className="acceptance-container">
+          <Heart size={64} className="acceptance-icon" color="var(--primary-color)" fill="currentColor" />
+          <h2 className="acceptance-heading">Yayy!</h2>
+          <p className="acceptance-message">You've made me the happiest! 💖🌹✨</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="fade-in">
-      <span style={{ fontSize: '0.8rem', fontWeight: 'bold', opacity: 0.7, letterSpacing: '1px' }}>
-        {mode.toUpperCase()} MODE
-      </span>
+    <div className="question-card-container fade-in">
+      <span className="question-mode-label">{mode.toUpperCase()} MODE</span>
       
-      <h3 style={{ fontSize: '1.5rem', margin: '20px 0', lineHeight: 1.3 }}>
+      <h3 className="question-text">
         {questionData.question}
       </h3>
 
-      <div style={{ minHeight: '40px', marginBottom: '20px' }}>
+      <div className="hint-section">
         {!showHint ? (
           <button 
             onClick={toggleHint}
-            style={{ background: 'none', border: 'none', color: 'var(--primary-color)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px', margin: '0 auto' }}
+            className="hint-button"
           >
             <Info size={16} /> Show Hint
           </button>
         ) : (
-          <p style={{ fontStyle: 'italic', color: 'var(--primary-color)' }}>💡 {questionData.hint}</p>
+          <p className="hint-text">💡 {questionData.hint}</p>
         )}
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', height: '50px', position: 'relative' }}>
-        <button className="btn primary-btn" onClick={onYes} style={{ zIndex: 10 }}>
+      <div className="buttons-container">
+        <button className="btn primary-btn yes-button" onClick={onYes}>
           YES
         </button>
         
-        <button 
-          className="btn secondary-btn"
-          style={{ 
-            position: noBtnPosition.position, 
-            top: noBtnPosition.top, 
-            left: noBtnPosition.left, 
-            transition: 'all 0.3s ease',
-            zIndex: 100 
-          }}
-          onMouseEnter={onNoHover}
-          onClick={onNoHover}
-        >
-          NO
-        </button>
+        {!showNextBtn && (
+          <button 
+            className="btn secondary-btn no-button"
+            onMouseEnter={onNoHover}
+            onClick={onNoHover}
+          >
+            NO
+          </button>
+        )}
       </div>
 
       {(popupMessage || showNextBtn) && (
-        <div style={{ marginTop: '15px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
+        <div className="next-question-container">
           {popupMessage && <div className="popup">{popupMessage}</div>}
           
           {showNextBtn && (
             <button 
               onClick={onNextQuestion}
-              style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 16px', borderRadius: '20px', border: '1px solid var(--primary-color)', background: 'white', cursor: 'pointer' }}
+              className="next-question-button"
             >
               Okay, ask another question <ArrowRight size={16} />
             </button>

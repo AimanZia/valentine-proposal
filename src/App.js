@@ -7,7 +7,7 @@ import ModeSelector from './components/ModeSelector';
 import QuestionCard from './components/QuestionCard';
 
 const App = () => {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
   const [mode, setMode] = useState(null); 
   const [currentQIndex, setCurrentQIndex] = useState(0);
   const [showHint, setShowHint] = useState(false);
@@ -46,35 +46,47 @@ useEffect(() => {
   };
 
   const handleNoInteraction = () => {
-    // Defines the "Safe Zones" where the button can go without overlapping the card
-    // The Heart Wrapper is 600x600px. The Card is in the center.
-    // We use percentages to keep it responsive.
+    // Defines the "Safe Zones" where the button can go
+    // Button moves within main-area container with padding from all edges
+    // Safe zones avoid overlapping the centered content-box
     
     const safeZones = [
-      // ZONE 1: TOP (Above the card)
-      // Top: 5-15%, Left: Random across width
-      { topMin: 5, topMax: 15, leftMin: 20, leftMax: 80 },
+      // ZONE 1: TOP-LEFT corner
+      { topMin: '3%', topMax: '25%', leftMin: '3%', leftMax: '30%' },
       
-      // ZONE 2: LEFT (To the left of the card)
-      // Top: Centered vertically, Left: 5-20%
-      { topMin: 30, topMax: 70, leftMin: 5, leftMax: 20 },
+      // ZONE 2: TOP-RIGHT corner
+      { topMin: '3%', topMax: '25%', leftMin: '70%', leftMax: '97%' },
       
-      // ZONE 3: RIGHT (To the right of the card)
-      // Top: Centered vertically, Left: 80-90%
-      { topMin: 30, topMax: 70, leftMin: 80, leftMax: 90 }
+      // ZONE 3: BOTTOM-LEFT corner
+      { topMin: '75%', topMax: '97%', leftMin: '3%', leftMax: '30%' },
+      
+      // ZONE 4: BOTTOM-RIGHT corner
+      { topMin: '75%', topMax: '97%', leftMin: '70%', leftMax: '97%' },
+
+      // ZONE 5: TOP-CENTER
+      { topMin: '3%', topMax: '18%', leftMin: '35%', leftMax: '65%' },
+
+      // ZONE 6: BOTTOM-CENTER
+      { topMin: '82%', topMax: '97%', leftMin: '35%', leftMax: '65%' }
     ];
 
     // 1. Pick a random zone
     const randomZone = safeZones[Math.floor(Math.random() * safeZones.length)];
 
     // 2. Generate random coordinates within that specific zone
-    const randomTop = Math.floor(Math.random() * (randomZone.topMax - randomZone.topMin + 1)) + randomZone.topMin;
-    const randomLeft = Math.floor(Math.random() * (randomZone.leftMax - randomZone.leftMin + 1)) + randomZone.leftMin;
+    const topMin = parseFloat(randomZone.topMin);
+    const topMax = parseFloat(randomZone.topMax);
+    const leftMin = parseFloat(randomZone.leftMin);
+    const leftMax = parseFloat(randomZone.leftMax);
+
+    const randomTop = (Math.random() * (topMax - topMin) + topMin).toFixed(1);
+    const randomLeft = (Math.random() * (leftMax - leftMin) + leftMin).toFixed(1);
 
     setNoBtnPosition({ 
       position: 'absolute', 
       top: `${randomTop}%`, 
-      left: `${randomLeft}%` 
+      left: `${randomLeft}%`,
+      transform: 'translate(-50%, -50%)'
     });
     
     setPopupMessage("You can't catch me! 😜");
@@ -110,6 +122,24 @@ useEffect(() => {
       />
 
       <main className="main-area">
+        {/* NO Button - Only appears after interaction */}
+        {mode && !accepted && showNextBtn && (
+          <button 
+            className="btn secondary-btn"
+            style={{ 
+              position: noBtnPosition.position, 
+              top: noBtnPosition.top, 
+              left: noBtnPosition.left,
+              transform: noBtnPosition.transform || 'none',
+              zIndex: 100
+            }}
+            onMouseEnter={handleNoInteraction}
+            onClick={handleNoInteraction}
+          >
+            NO
+          </button>
+        )}
+
         <div className="heart-wrapper">
           {/* SVG Background */}
           <svg viewBox="0 0 512 512" className="heart-svg">
@@ -133,19 +163,26 @@ useEffect(() => {
                 toggleHint={() => setShowHint(true)}
                 onYes={() => setAccepted(true)}
                 onNoHover={handleNoInteraction}
-                noBtnPosition={noBtnPosition}
                 popupMessage={popupMessage}
                 showNextBtn={showNextBtn}
                 onNextQuestion={handleNextQuestion}
+                accepted={false}
               />
             )}
 
             {accepted && (
-              <div className="fade-in">
-                <Heart size={64} color="red" fill="red" style={{ margin: '0 auto 20px', display: 'block' }} />
-                <h2 style={{ color: 'var(--primary-color)' }}>Yayy!</h2>
-                <p style={{ fontSize: '1.2rem', marginTop: '10px' }}>{CONFIG.proposalMessage}</p>
-              </div>
+              <QuestionCard 
+                questionData={QUESTION_DATA[mode][currentQIndex]}
+                mode={mode}
+                showHint={showHint}
+                toggleHint={() => setShowHint(true)}
+                onYes={() => setAccepted(true)}
+                onNoHover={handleNoInteraction}
+                popupMessage={popupMessage}
+                showNextBtn={showNextBtn}
+                onNextQuestion={handleNextQuestion}
+                accepted={true}
+              />
             )}
           </div>
         </div>

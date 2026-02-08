@@ -1,0 +1,332 @@
+/* ==========================================
+   QUESTION CARD - GLASS MORPHISM STYLING
+   ========================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Poppins:wght@300;400;500;600&family=Dancing+Script:wght@700&display=swap');
+
+.question-card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  width: 100%;
+  animation: scaleIn 0.5s ease-out;
+}
+
+.question-mode-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  opacity: 0.7;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--primary-color);
+  margin: 0;
+
+  @media (max-width: 768px) {
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.65rem;
+    letter-spacing: 0.8px;
+  }
+}
+
+.question-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.4;
+  color: var(--text-color);
+  text-align: center;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+  }
+}
+
+/* Hint Section */
+.hint-section {
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.hint-button {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+  border-radius: 10px;
+
+  &:hover {
+    background: rgba(255, 77, 109, 0.1);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.85rem;
+    gap: 3px;
+  }
+}
+
+.hint-text {
+  font-family: 'Poppins', sans-serif;
+  font-style: italic;
+  color: var(--primary-color);
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 0.75rem;
+  background: rgba(255, 182, 193, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 105, 180, 0.2);
+  animation: slideIn 0.4s ease-out;
+
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+    padding: 0.6rem;
+  }
+}
+
+/* Buttons Container */
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  min-height: 60px;
+  position: relative;
+  flex-wrap: wrap;
+  z-index: 10;
+
+  @media (max-width: 480px) {
+    gap: 1rem;
+  }
+}
+
+.yes-button {
+  position: relative;
+  z-index: 10;
+}
+
+.no-button {
+  transition: all 0.2s ease;
+  z-index: 100;
+}
+
+/* Acceptance Message Container */
+.acceptance-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.acceptance-icon {
+  animation: heartBeatBig 1.3s ease-in-out infinite;
+}
+
+.acceptance-heading {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin: 0;
+  animation: slideInDown 0.6s ease-out;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.6rem;
+  }
+}
+
+.acceptance-message {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-color);
+  text-align: center;
+  margin: 0.5rem 0;
+  opacity: 0.9;
+  line-height: 1.6;
+  animation: fadeIn 0.6s ease-out 0.2s both;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+  }
+}
+
+/* Next Question Button */
+.next-question-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.next-question-button {
+  background: rgba(255, 182, 193, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--primary-color);
+  color: var(--text-color);
+  padding: 0.85rem 1.5rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(255, 77, 109, 0.15);
+
+  &:hover {
+    background: rgba(255, 182, 193, 0.3);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 77, 109, 0.25);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+    padding: 0.75rem 1.2rem;
+    gap: 0.5rem;
+  }
+}
+
+.next-question-button svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s ease;
+}
+
+.next-question-button:hover svg {
+  transform: translateX(4px);
+}
+
+/* ==========================================
+   ANIMATIONS
+   ========================================== */
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes heartBeatBig {
+  0%, 100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.2);
+  }
+  50% {
+    transform: scale(1);
+  }
+  75% {
+    transform: scale(1.15);
+  }
+}
+
+/* ==========================================
+   RESPONSIVE ADJUSTMENTS
+   ========================================== */
+
+@media (max-width: 768px) {
+  .buttons-container {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .buttons-container {
+    gap: 0.8rem;
+    min-height: 50px;
+  }
+
+  .hint-section {
+    min-height: 40px;
+  }
+}

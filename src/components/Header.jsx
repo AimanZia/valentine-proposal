@@ -1,18 +1,33 @@
 import React from 'react';
-import { Heart, Sun, Moon } from 'lucide-react';
+import { Heart, Sun, Moon, Sparkles } from 'lucide-react';
+import '../styles/Header.css';
 
 const Header = ({ girlName, darkMode, toggleTheme }) => (
-  <header style={{ padding: '20px', textAlign: 'center', position: 'relative', zIndex: 10 }}>
-    <h1>
-      Made for {girlName} with 
-      <Heart fill="red" color="red" size={24} style={{ display: 'inline', verticalAlign: 'middle', marginLeft: '5px' }} />
-    </h1>
-    <button 
-      onClick={toggleTheme} 
-      style={{ position: 'absolute', right: '20px', top: '20px', background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--text-color)' }}
-    >
-      {darkMode ? <Sun size={20} /> : <Moon size={20} />}
-    </button>
+  <header className="glass-header">
+    <div className="header-container">
+      <div className="header-content">
+        <div className="header-text-wrapper">
+          <Sparkles className="sparkle-icon left-sparkle" size={20} />
+          <h1 className="header-title">
+            Made for <span className="girl-name">{girlName}</span> with
+            <Heart className="heart-icon" fill="currentColor" />
+          </h1>
+          <Sparkles className="sparkle-icon right-sparkle" size={20} />
+        </div>
+        <p className="header-subtitle">A Special Valentine Experience</p>
+      </div>
+
+      <button 
+        onClick={toggleTheme}
+        className="theme-toggle-btn"
+        aria-label="Toggle theme"
+      >
+        <div className="theme-icon-wrapper">
+          {darkMode ? <Sun size={22} /> : <Moon size={22} />}
+        </div>
+      </button>
+    </div>
+    <div className="header-gradient-line"></div>
   </header>
 );
 
